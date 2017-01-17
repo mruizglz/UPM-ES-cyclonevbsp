@@ -159,11 +159,7 @@ signal displays_ena_n:			std_logic_vector(5 downto 0);
 
     component soc_system is
         port(
-			blinker_external_connection_switches  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- switches
-			blinker_external_connection_buttons   : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- buttons
-			blinker_external_connection_leds      : out   std_logic_vector(7 downto 0);                     -- leds
-			displays_ctrl_external_connection_export 	  : out   std_logic_vector(5 downto 0);                     -- export
-            clk_clk                               : in    std_logic                     := 'X';
+	    clk_clk                               : in    std_logic                     := 'X';
 			hps_0_h2f_reset_reset_n               : out   std_logic;                                        -- reset_n
             hps_0_io_hps_io_emac1_inst_TX_CLK     : out   std_logic;
             hps_0_io_hps_io_emac1_inst_TX_CTL     : out   std_logic;
@@ -220,22 +216,22 @@ signal displays_ena_n:			std_logic_vector(5 downto 0);
             hps_0_io_hps_io_gpio_inst_GPIO53      : inout std_logic                     := 'X';
             hps_0_io_hps_io_gpio_inst_GPIO54      : inout std_logic                     := 'X';
             hps_0_io_hps_io_gpio_inst_GPIO61      : inout std_logic                     := 'X';
-			hps_0_ddr_mem_a                       : out   std_logic_vector(14 downto 0);                    -- mem_a
-			hps_0_ddr_mem_ba                      : out   std_logic_vector(2 downto 0);                     -- mem_ba
-			hps_0_ddr_mem_ck                      : out   std_logic;                                        -- mem_ck
-			hps_0_ddr_mem_ck_n                    : out   std_logic;                                        -- mem_ck_n
-			hps_0_ddr_mem_cke                     : out   std_logic;                                        -- mem_cke
-			hps_0_ddr_mem_cs_n                    : out   std_logic;                                        -- mem_cs_n
-			hps_0_ddr_mem_ras_n                   : out   std_logic;                                        -- mem_ras_n
-			hps_0_ddr_mem_cas_n                   : out   std_logic;                                        -- mem_cas_n
-			hps_0_ddr_mem_we_n                    : out   std_logic;                                        -- mem_we_n
-			hps_0_ddr_mem_reset_n                 : out   std_logic;                                        -- mem_reset_n
-			hps_0_ddr_mem_dq                      : inout std_logic_vector(31 downto 0) := (others => 'X'); -- mem_dq
-			hps_0_ddr_mem_dqs                     : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs
-			hps_0_ddr_mem_dqs_n                   : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs_n
-			hps_0_ddr_mem_odt                     : out   std_logic;                                        -- mem_odt
-			hps_0_ddr_mem_dm                      : out   std_logic_vector(3 downto 0);                     -- mem_dm
-			hps_0_ddr_oct_rzqin                   : in    std_logic                     := 'X';             -- oct_rzqin
+	    hps_0_ddr_mem_a                       : out   std_logic_vector(14 downto 0);                    -- mem_a
+	    hps_0_ddr_mem_ba                      : out   std_logic_vector(2 downto 0);                     -- mem_ba
+	    hps_0_ddr_mem_ck                      : out   std_logic;                                        -- mem_ck
+	    hps_0_ddr_mem_ck_n                    : out   std_logic;                                        -- mem_ck_n
+	    hps_0_ddr_mem_cke                     : out   std_logic;                                        -- mem_cke
+	    hps_0_ddr_mem_cs_n                    : out   std_logic;                                        -- mem_cs_n
+	    hps_0_ddr_mem_ras_n                   : out   std_logic;                                        -- mem_ras_n
+	    hps_0_ddr_mem_cas_n                   : out   std_logic;                                        -- mem_cas_n
+	    hps_0_ddr_mem_we_n                    : out   std_logic;                                        -- mem_we_n
+	    hps_0_ddr_mem_reset_n                 : out   std_logic;                                        -- mem_reset_n
+	    hps_0_ddr_mem_dq                      : inout std_logic_vector(31 downto 0) := (others => 'X'); -- mem_dq
+	    hps_0_ddr_mem_dqs                     : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs
+	    hps_0_ddr_mem_dqs_n                   : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs_n
+	    hps_0_ddr_mem_odt                     : out   std_logic;                                        -- mem_odt
+	    hps_0_ddr_mem_dm                      : out   std_logic_vector(3 downto 0);                     -- mem_dm
+	    hps_0_ddr_oct_rzqin                   : in    std_logic                     := 'X';             -- oct_rzqin
             reset_reset_n                         : in    std_logic                     := 'X'
         );
     end component soc_system;
@@ -243,10 +239,6 @@ signal displays_ena_n:			std_logic_vector(5 downto 0);
 begin
     soc_system_inst : component soc_system
         port map(
-            blinker_external_connection_buttons   => KEY_N,
-            blinker_external_connection_leds      => LEDR(7 downto 0),
-            blinker_external_connection_switches  => SW(7 downto 0),
-			displays_ctrl_external_connection_export 	  => displays_ena_n,
             clk_clk                               => CLOCK_50,
             hps_0_io_hps_io_emac1_inst_TX_CLK     => HPS_ENET_GTX_CLK,
             hps_0_io_hps_io_emac1_inst_TX_CTL     => HPS_ENET_TX_EN,
@@ -319,20 +311,8 @@ begin
             hps_0_ddr_mem_odt                     => HPS_DDR3_ODT,
             hps_0_ddr_mem_dm                      => HPS_DDR3_DM,
             hps_0_ddr_oct_rzqin                   => HPS_DDR3_RZQ,
-				hps_0_h2f_reset_reset_n               => hps_fpga_reset_n,
-            reset_reset_n                         => '1'
+	    reset_reset_n                         => '1'
         );
 		  
-		  displays_test:
-		  entity work.displays_test(rtl)
-			port map(clk		=> CLOCK_50,
-						nRst		=>	hps_fpga_reset_n,
-						disp_ena_n	=> displays_ena_n,
-						disp0		=> HEX0_N,
-						disp1		=> HEX1_N,
-						disp2		=> HEX2_N,
-						disp3		=> HEX3_N,
-						disp4		=> HEX4_N,
-						disp5		=> HEX5_N
-			);
+	
 end;
